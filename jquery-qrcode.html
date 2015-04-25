@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>通过jquery-qrcode生成二维码</title>
+</head>
+<body>
+<!-- 引入百度CDN公共库的压缩版jQuery -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<!--引入压缩版jquery.qrcode.js -->
+<script src="jquery.qrcode.min.js"></script>
+<!--未压缩则需要引入两个文件jquery.qrcode.js和qrcode.js -->
+<!--jquery.qrcode.js：jquery封装渲染类库 -->
+<!--<script src="jquery.qrcode.js"></script>-->
+<!--qrcode.js：二维码核心计算类库 -->
+<!--<script src="qrcode.js"></script>-->
+<script src="jquery.qrcode.min.js"></script>
+<!--解决中文乱码问题，引入utf16to8.js -->
+<script src="utf16to8.js"></script>
+<p>用canvas渲染(http://www.cnblogs.com/scaleworld/)</p>
+
+<div id="qrcodeCanvas"></div>
+<p>用table渲染(量衡天下博客：http://www.cnblogs.com/scaleworld/)</p>
+
+<div id="qrcodeTable"></div>
+<script>
+    //最简用法，render默认是canvas,右键可下载二维码图片
+    $('#qrcodeCanvas').qrcode("http://www.cnblogs.com/scaleworld/");
+    //完整用法，有默认值的均可省略
+    $('#qrcodeTable').qrcode({
+        text: utf16to8("量衡天下博客：http://www.cnblogs.com/scaleworld/"),//二维码包含的内容，默认只支持英文内容,中文会乱码，通过utf16to8转码可支持中文
+        render: "table",//渲染方式可选择canvas或table，默认是canvas，推荐用canvas
+        width: 256,//宽度，默认是256
+        height: 256,//高度，默认是256，建议宽度和高度保持一致，否则不容易被识别
+        typeNumber: -1,//计算模式，默认是-1
+        //correctLevel: QRErrorCorrectLevel.H,//纠错等级，默认是QRErrorCorrectLevel.H，但是加上correctLevel这一行后无法渲染出二维码
+        background: "#ffffff",//背景颜色，默认是白色
+        foreground: "#000000"//前景颜色，默认是黑色
+    });
+</script>
+<body>
+</html>
